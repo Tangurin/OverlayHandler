@@ -7,7 +7,7 @@
         selector: null,
         keyEvent: null,
         callbacks: {
-            onClose: {}
+            onClose: []
         },
         initialize: function($selector) {
             OverlayHandler.selector = $selector;
