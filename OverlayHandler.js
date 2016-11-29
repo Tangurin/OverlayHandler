@@ -5,6 +5,7 @@
     ===========================*/
     var OverlayHandler = {
         selector: null,
+        keyEvent: null,
         callbacks: {
             onClose: {}
         },
@@ -18,6 +19,8 @@
             if (showLoader) {
                 OverlayHandler.selector.addClass('loading');
             }
+
+            OverlayHandler.bindEscapeKey();
         },
         hide: function() {
             OverlayHandler.selector.removeClass('active loading');
@@ -25,6 +28,8 @@
             for (var i in callbacks.onClose) {
                 callbacks.onClose[i](OverlayHandler.selector);
             }
+
+            OverlayHandler.unbindEscapeKey();
         },
         showLoader: function() {
             OverlayHandler.selector.addClass('loading');
@@ -37,6 +42,19 @@
         onClose: function(callback) {
             if (typeof callback == 'function') {
                 OverlayHandler.callbacks.onClose.push(callback);
+            }
+        },
+        bindEscapeKey: function() {
+            $(document).on('keyup', function(e) {
+                 if (e.keyCode == 27) {
+                    OverlayHandler.hide();
+                }
+            });
+        },
+        unbindEscapeKey: function() {
+            if (OverlayHandler.keyEvent != null) {
+                OverlayHandler.keyEvent.unbind('keyup');
+                OverlayHandler.keyEvent = null;
             }
         },
         setSelector: function($selector) {
