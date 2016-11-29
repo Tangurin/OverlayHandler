@@ -10,6 +10,7 @@
         },
         initialize: function($selector) {
             OverlayHandler.selector = $selector;
+            OverlayHandler.selector.on('click', OverlayHandler.hide);
         },
         show: function(showLoader) {
             var showLoader = showLoader || false;
