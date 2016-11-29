@@ -14,7 +14,7 @@
         show: function(showLoader) {
             var showLoader = showLoader || false;
             OverlayHandler.selector.addClass('active');
-            if (loading) {
+            if (showLoader) {
                 OverlayHandler.selector.addClass('loading');
             }
         },
