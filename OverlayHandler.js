@@ -27,6 +27,7 @@
             var callbacks = OverlayHandler.callbacks;
             for (var i in callbacks.onClose) {
                 callbacks.onClose[i](OverlayHandler.selector);
+                delete callbacks.onClose[i];
             }
 
             OverlayHandler.unbindEscapeKey();
