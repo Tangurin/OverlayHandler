@@ -38,12 +38,13 @@
         hideLoader: function() {
             OverlayHandler.selector.removeClass('loading');
         },
-        showLoading: function() { OverlayHandler.showLoader() },
-        hideLoading: function() { OverlayHandler.hideLoader() },
         onClose: function(callback) {
             if (typeof callback == 'function') {
                 OverlayHandler.callbacks.onClose.push(callback);
             }
+        },
+        onHide: function(callback) {
+            OverlayHandler.onClose(callback);
         },
         bindEscapeKey: function() {
             $(document).on('keyup', function(e) {
@@ -63,7 +64,12 @@
         },
         getSelector: function() {
             return OverlayHandler.selector;
-        }
+        },
+        /* Aliases */
+        open: function(showLoader) { OverlayHandler.show(showLoader) },
+        close: function() { OverlayHandler.hide() },
+        showLoading: function() { OverlayHandler.showLoader() },
+        hideLoading: function() { OverlayHandler.hideLoader() },
     };
     window.OverlayHandler = OverlayHandler;
 })();
