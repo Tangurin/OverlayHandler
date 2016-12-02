@@ -4,39 +4,43 @@
     OverlayHandler
     ===========================*/
     var OverlayHandler = {
-        selector: null,
+        element: null,
         keyEvent: null,
         callbacks: {
             onClose: []
         },
-        initialize: function($selector) {
-            OverlayHandler.selector = $selector;
-            OverlayHandler.selector.on('click', OverlayHandler.hide);
+        initialize: function($element) {
+            OverlayHandler.element = $element;
+            OverlayHandler.element.on('click', OverlayHandler.hide);
         },
         show: function(showLoader) {
             var showLoader = showLoader || false;
-            OverlayHandler.selector.addClass('active');
+            OverlayHandler.element.addClass('active');
             if (showLoader) {
-                OverlayHandler.selector.addClass('loading');
+                OverlayHandler.element.addClass('loading');
             }
 
             OverlayHandler.bindEscapeKey();
         },
-        hide: function() {
-            OverlayHandler.selector.removeClass('active loading');
+        hide: function(noCallback) {
+            if (OverlayHandler.element.hasClass('active')) {
+                return false;
+            }
+            OverlayHandler.element.removeClass('active loading');
             var callbacks = OverlayHandler.callbacks;
             for (var i in callbacks.onClose) {
-                callbacks.onClose[i](OverlayHandler.selector);
-                delete callbacks.onClose[i];
+                var method = callbacks.onClose[i];
+                callbacks.onClose.splice(i, 1);
+                method(OverlayHandler.element);
             }
 
             OverlayHandler.unbindEscapeKey();
         },
         showLoader: function() {
-            OverlayHandler.selector.addClass('loading');
+            OverlayHandler.element.addClass('loading');
         },
         hideLoader: function() {
-            OverlayHandler.selector.removeClass('loading');
+            OverlayHandler.element.removeClass('loading');
         },
         onClose: function(callback) {
             if (typeof callback == 'function') {
@@ -60,10 +64,10 @@
             }
         },
         setSelector: function($selector) {
-            OverlayHandler.selector = $selector;
+            OverlayHandler.element = $selector;
         },
         getSelector: function() {
-            return OverlayHandler.selector;
+            return OverlayHandler.element;
         },
         /* Aliases */
         open: function(showLoader) { OverlayHandler.show(showLoader) },
