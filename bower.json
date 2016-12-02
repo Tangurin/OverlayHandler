@@ -1,0 +1,24 @@
+{
+  "name": "OverlayHandler",
+  "main": "OverlayHandler.js",
+  "homepage": "https://github.com/Tangurin/OverlayHandler",
+  "authors": [
+    "Albert <albert@engvie.se>"
+  ],
+  "description": "JavaScript Class for full page overlay handling",
+  "keywords": [
+    "Popup"
+  ],
+  "dependencies": {
+      "jquery": ">=1.7.1"
+  },
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
