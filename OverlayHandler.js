@@ -23,7 +23,7 @@
             OverlayHandler.bindEscapeKey();
         },
         hide: function(noCallback) {
-            if (OverlayHandler.element.hasClass('active')) {
+            if (OverlayHandler.element.hasClass('active') === false) {
                 return false;
             }
             OverlayHandler.element.removeClass('active loading');
