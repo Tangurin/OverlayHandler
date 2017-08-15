@@ -1,0 +1,32 @@
+#overlay {
+  transition: all 0.2s;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: #000;
+  height: 100%;
+  z-index: 999;
+  visibility: hidden;
+  opacity: 0;
+}
+#overlay.active {
+  visibility: visible;
+  opacity: 0.5;
+}
+#overlay .loaderIcon {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%);
+  z-index: 1001;
+  transition: all 0.3s;
+  visibility: hidden;
+  opacity: 0;
+  font-size: 100px;
+  color: #fff;
+}
+#overlay.loading .loaderIcon {
+  visibility: visible;
+  opacity: 1;
+}
