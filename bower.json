@@ -12,6 +12,10 @@
   "dependencies": {
       "jquery": ">=1.7.1"
   },
+  "main": [
+    "OverlayHandler.js",
+    "OverlayHandler.css"
+  ],
   "license": "MIT",
   "private": true,
   "ignore": [
