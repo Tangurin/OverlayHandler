@@ -6,15 +6,34 @@
     var OverlayHandler = {
         element: null,
         keyEvent: null,
+        initialized: false,
+        active: false,
         callbacks: {
             onClose: []
         },
         initialize: function($element) {
-            OverlayHandler.element = $element;
-            OverlayHandler.element.on('click', OverlayHandler.hide);
+            if (OverlayHandler.initialized === false) {
+                var $existingOverlayHandlers = $('#overlayHandler');
+                if ($existingOverlayHandlers.length > 0) {
+                    console.log('#overlayHandler already exists');
+                    console.log($existingOverlayHandlers);
+                    return false;
+                }
+
+                var $overlayElement = $('<div id="overlayHandler"><i class="fa fa-cog fa-spin loaderIcon" aria-hidden="true"></i></div>');
+                $('body').append($overlayElement);
+                OverlayHandler.element = $overlayElement;
+                OverlayHandler.element.on('click', OverlayHandler.hide);
+                OverlayHandler.initialized = true;
+            }
         },
         show: function(showLoader) {
+            OverlayHandler.initialize();
+            if (OverlayHandler.isActive()) {
+                return false;
+            }
             var showLoader = showLoader || false;
+            OverlayHandler.active = true;
             OverlayHandler.element.addClass('active');
             if (showLoader) {
                 OverlayHandler.element.addClass('loading');
@@ -23,7 +42,8 @@
             OverlayHandler.bindEscapeKey();
         },
         hide: function(noCallback) {
-            if (OverlayHandler.element.hasClass('active') === false) {
+            OverlayHandler.initialize();
+            if (OverlayHandler.isActive() === false) {
                 return false;
             }
             OverlayHandler.element.removeClass('active loading');
@@ -35,6 +55,7 @@
             }
 
             OverlayHandler.unbindEscapeKey();
+            OverlayHandler.active = false;
         },
         showLoader: function() {
             OverlayHandler.element.addClass('loading');
@@ -62,6 +83,9 @@
                 OverlayHandler.keyEvent.unbind('keyup');
                 OverlayHandler.keyEvent = null;
             }
+        },
+        isActive: function() {
+            return OverlayHandler.active;
         },
         setSelector: function($selector) {
             OverlayHandler.element = $selector;
