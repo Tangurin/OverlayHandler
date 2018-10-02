@@ -15,8 +15,6 @@
             if (OverlayHandler.initialized === false) {
                 var $existingOverlayHandlers = $('#overlayHandler');
                 if ($existingOverlayHandlers.length > 0) {
-                    console.log('#overlayHandler already exists');
-                    console.log($existingOverlayHandlers);
                     return false;
                 }
 
